@@ -1,0 +1,25 @@
+<form [formGroup]="CustomerModel.formCustomerGroup">
+Customer Code :<input formControlName="CustomerCodeControl"
+[(ngModel)]="CustomerModel.CustomerCode" 
+  type=text/><br>
+<div *ngIf="CustomerModel.formCustomerGroup.dirty" [hidden]="!hasError('pattern', 'CustomerCodeControl')">Customer Code format is not proper</div><br>
+<div *ngIf="CustomerModel.formCustomerGroup.dirty" [hidden]="!hasError('required', 'CustomerCodeControl')">Customer Code is required</div><br>
+ 
+ 
+Customer Name :<input formControlName="CustomerNameControl" 
+[(ngModel)]="CustomerModel.CustomerName"
+type=text/><br>
+<div *ngIf="CustomerModel.formCustomerGroup.dirty" [hidden]="!hasError('required', 'CustomerNameControl' )">Customer name is required</div><br>
+
+Customer Amount :<input [(ngModel)]="CustomerModel.CustomerAmount"
+[ngModelOptions]="{standalone: true}"
+type=text/><br>
+<input [disabled]="!(CustomerModel.formCustomerGroup.valid)" (click)="Add()"  type=button value="Add"/><br>
+</form>
+
+
+
+<grid-ui [grid-Columns]="[{'colName': 'CustomerCode'},{'colName': 'CustomerName'},{'colName':'CustomerAmount'}]"
+[grid-Data]="CustomerModels"
+(grid-Selected)="SelectCustomer($event)"
+></grid-ui>
